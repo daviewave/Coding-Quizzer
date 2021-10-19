@@ -18,7 +18,7 @@ header {
   color: #fff;
 }
 
-h2 {
+header h2 {
   display: inline;
   justify-content: space-between;
   max-width: 50px;
