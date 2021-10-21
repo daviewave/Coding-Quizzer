@@ -6,10 +6,16 @@ var secondsRemaining = document.getElementById("seconds-left");
 
 //FUNCTIONS
 //TODO: create function to start the quiz
-function startQuiz() {}
+function startQuiz() {
+  startTimer();
+
+  //1. Need to present the user the first question + answer options
+
+  //2. Handle when each button is pressed
+}
 
 function startTimer() {
-  var timeLeft = 60;
+  var timeLeft = 59;
 
   var timer = setInterval(function () {
     if (timeLeft > 0) {
@@ -21,8 +27,6 @@ function startTimer() {
     }
   }, 1000);
 }
-
-startTimer();
 
 //USER INTERACTIONS
 startQuizBtn.on("click", startQuiz);
