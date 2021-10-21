@@ -86,11 +86,6 @@ function startQuiz() {
   startQuizBtn.style.visibility = "hidden";
   startTimer();
 
-  var correct = getCorrectAnswerLetter(quizQuestions[0]);
-  var isCorrectAnswer = getNumberValueFromCharacter(correct);
-
-  console.log(isCorrectAnswer);
-
   //1. Need to get a question and its answers and set to current quiz card
   for (var i = 0; i < quizQuestions.length; i++) {
     //first gets an individual quizQuestions object
@@ -104,7 +99,7 @@ function startQuiz() {
 
     //also then gets the selected objects answer property and sets it to the relevant html element
     var currentQuestionAnswers = getAnswers(currentQuizObject);
-    // setAnswers;
+    setAnswers(currentQuizObject, currentQuestionAnswers);
     // console.log(getCorrectAnswerLetter(currentQuizObject));
 
     break;
@@ -154,23 +149,30 @@ function getAnswers(object) {
   for (let letter in curAnswers) {
     var answerString = curAnswers[letter];
     currentQuestionsAnswers.push(answerString);
-    console.log(answerString);
-    break;
   }
   //returns an array of strings with each element being a different multiple choice options
   return currentQuestionsAnswers;
 }
 
-function setAnswers(currentQuestionAnswerOptions) {
+function setAnswers(object, currentQuestionAnswerOptions) {
   //TODO: add a button for each element in array passed in
   for (var i = 0; i < currentQuestionAnswerOptions.length; i++) {
+    var correct = getCorrectAnswerLetter(object);
+    var isCorrectAnswer = getNumberValueFromCharacter(correct);
+    console.log(isCorrectAnswer);
+
     //1. Create the button
     var currentAnswerOption = document.createElement("button");
     currentAnswerOption.innerHTML = currentQuestionAnswerOptions[i];
     //2. Append somewhere
     curAnswers.appendChild(currentAnswerOption);
     //3. Add event handler
-    currentAnswerOption.addEventListener("click");
+    if (i === isCorrectAnswer) {
+      //Handle when the correct answer was chosen
+      currentAnswerOption;
+    } else {
+      //Handle when the correct answer was chosen
+    }
   }
 }
 
@@ -185,11 +187,6 @@ function getNumberValueFromCharacter(char) {
     return 3;
   }
 }
-
-//check when a button is correct, if it is the right answer, and what to do in each scenario after
-// function isCorrectAnswer(){
-//     var
-// }
 
 init();
 
