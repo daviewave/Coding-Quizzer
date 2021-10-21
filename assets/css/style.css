@@ -24,3 +24,8 @@ header h2 {
   justify-content: space-between;
   max-width: 50px;
 }
+
+#quiz-display {
+  border: 5px solid blue;
+  height: 600px;
+}
