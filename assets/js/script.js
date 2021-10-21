@@ -14,6 +14,7 @@ var isStartingScreen = true;
 //Need an array containing the quiz questions and potential answers
 var quizQuestions = [
   {
+    number: 1,
     question:
       "1. Which of the following is not a way to define a new variable in javascript?",
     answers: {
@@ -25,6 +26,7 @@ var quizQuestions = [
     correctAnswer: "c",
   },
   {
+    number: 2,
     question: "2. Which of the following is not semantic elements in html5?",
     answers: {
       a: "middle",
@@ -35,6 +37,7 @@ var quizQuestions = [
     correctAnswer: "a",
   },
   {
+    number: 3,
     question:
       "3. Which of the following data types returns a true/false value?",
     answers: {
@@ -46,6 +49,7 @@ var quizQuestions = [
     correctAnswer: "d",
   },
   {
+    number: 4,
     question:
       "4. What is the name of a function that contains a parameter that accepts another function as an argument?",
     answers: {
@@ -57,6 +61,7 @@ var quizQuestions = [
     correctAnswer: "b",
   },
   {
+    number: 5,
     question:
       "5. When using Git, which line of code will allow you to switch from the current branch to the main branch?",
     answers: {
@@ -81,9 +86,11 @@ function startQuiz() {
   //changes button text to from start to submit and starts timer
   startQuizBtn.style.visibility = "hidden";
   startTimer();
-  var x = getQuestion(quizQuestions, 0);
-  setQuestion(x);
-  console.log(curQuestion);
+
+  var x = getAnswers(quizQuestions[0]);
+  //   setQuestion(x);
+  console.log(x);
+
   //   for(var i = 0; i<quizQuestions.length;i++)
   //     var currentQuestion = getQuestion(quizQuestions, i);
 
@@ -113,11 +120,31 @@ function startTimer() {
   }, 1000);
 }
 
-function getQuestion(array, index) {
-  return array[index].question;
+function getQuizObject(array, index) {
+  return array[index];
+}
+
+function getQuestion(object) {
+  return object.question;
 }
 
 function setQuestion(question) {
+  curQuestion.innerHTML = question;
+}
+
+function getAnswers(object) {
+  var currentQuestionsAnswers = [];
+  var curAnswers = object.answers;
+
+  for (let letter in curAnswers) {
+    var answerString = "$" + curAnswers[letter];
+    currentQuestionsAnswers.push(answerString);
+  }
+  //   console.log(currentQuestionsAnswers);
+  return currentQuestionsAnswers;
+}
+
+function setAnswers(question) {
   curQuestion.innerHTML = question;
 }
 
