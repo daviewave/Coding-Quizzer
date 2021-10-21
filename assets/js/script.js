@@ -8,14 +8,10 @@ var highscoreCard = document.getElementById("highscores");
 var secondsRemaining = document.getElementById("seconds-left");
 
 //DATA
-//bool to track if the current screen is the intro screen (still press start button)
 var numCorrect = 0;
-var isAnswered = false;
 var timeLeft = 59;
 var numQuestions = 5;
 var counter = 0;
-
-//Need an array containing the quiz questions and potential answers
 var quizQuestions = [
   {
     number: 0,
@@ -78,13 +74,20 @@ var quizQuestions = [
   },
 ];
 
+//FUNCTIONS
 function init() {
   curQuestion.innerHTML = "Coding Skills Quizzer";
   curAnswers.innerHTML =
     "In the coding quiz you will be asked a series of multiple choice questions to test your knowledge on the principles of coding. Click the 'START' button below to begin.";
 }
 
-//FUNCTIONS
+function startQuiz() {
+  startQuizBtn.style.visibility = "hidden";
+  startTimer();
+  clearQuestion();
+  updateQuestion(quizQuestions);
+}
+
 function updateQuestion(arrayOfobjects) {
   var newQuestion = getQuestion(arrayOfobjects[counter]);
   var newAnswers = getAnswers(arrayOfobjects[counter]);
@@ -92,22 +95,9 @@ function updateQuestion(arrayOfobjects) {
   setQuestion(newQuestion);
   setAnswers(arrayOfobjects[counter], newAnswers);
   numQuestions--;
-  if (numQuestions > 0) {
+  if (numQuestions === 0) {
     //Call a function to end the game
   }
-}
-
-function clearQuestion() {
-  curQuestion.innerHTML = "";
-  curAnswers.innerHTML = "";
-}
-
-//TODO: create function to start the quiz
-function startQuiz() {
-  startQuizBtn.style.visibility = "hidden";
-  startTimer();
-  clearQuestion();
-  updateQuestion(quizQuestions);
 }
 
 function startTimer() {
@@ -128,10 +118,6 @@ function getQuizObject(array, index) {
 
 function getQuestion(object) {
   return object.question;
-}
-
-function getCorrectAnswerLetter(object) {
-  return object.correctAnswer;
 }
 
 function setQuestion(question) {
@@ -173,6 +159,10 @@ function setAnswers(object, currentQuestionAnswerOptions) {
   }
 }
 
+function getCorrectAnswerLetter(object) {
+  return object.correctAnswer;
+}
+
 function getNumberValueFromCharacter(char) {
   if (char === "a") {
     return 0;
@@ -199,7 +189,7 @@ function handleWrongAnswer() {
   updateQuestion(quizQuestions);
 }
 
-init();
-
 //USER INTERACTIONS
 startQuizBtn.addEventListener("click", startQuiz);
+
+init();
