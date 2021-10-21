@@ -9,7 +9,11 @@ var secondsRemaining = document.getElementById("seconds-left");
 
 //DATA
 //bool to track if the current screen is the intro screen (still press start button)
-var isStartingScreen = true;
+var numCorrect = 0;
+var isAnswered = false;
+var timeLeft = 59;
+var numQuestions = 5;
+var counter = 0;
 
 //Need an array containing the quiz questions and potential answers
 var quizQuestions = [
@@ -81,39 +85,32 @@ function init() {
 }
 
 //FUNCTIONS
+function updateQuestion(arrayOfobjects) {
+  var newQuestion = getQuestion(arrayOfobjects[counter]);
+  var newAnswers = getAnswers(arrayOfobjects[counter]);
+
+  setQuestion(newQuestion);
+  setAnswers(arrayOfobjects[counter], newAnswers);
+  numQuestions--;
+  if (numQuestions > 0) {
+    //Call a function to end the game
+  }
+}
+
+function clearQuestion() {
+  curQuestion.innerHTML = "";
+  curAnswers.innerHTML = "";
+}
+
 //TODO: create function to start the quiz
 function startQuiz() {
   startQuizBtn.style.visibility = "hidden";
   startTimer();
-
-  //1. Need to get a question and its answers and set to current quiz card
-  for (var i = 0; i < quizQuestions.length; i++) {
-    //first gets an individual quizQuestions object
-    currentQuizObject = getQuizObject(quizQuestions, i);
-
-    //then gets the selected objects question property and sets it to the relevant html element
-    var currentQuizQuestion = getQuestion(currentQuizObject);
-    setQuestion(currentQuizQuestion);
-    // console.log(currentQuizObject);
-    // console.log(currentQuizQuestion);
-
-    //also then gets the selected objects answer property and sets it to the relevant html element
-    var currentQuestionAnswers = getAnswers(currentQuizObject);
-    setAnswers(currentQuizObject, currentQuestionAnswers);
-    // console.log(getCorrectAnswerLetter(currentQuizObject));
-
-    break;
-  }
-
-  //2.a Store quiz questions in an array and start looping array to display first question
-  //2.b Store quiz questions in an array and start looping array to display first question
-
-  //3. Handle when each button is pressed  //
+  clearQuestion();
+  updateQuestion(quizQuestions);
 }
 
 function startTimer() {
-  var timeLeft = 59;
-
   var timer = setInterval(function () {
     if (timeLeft > 0) {
       secondsRemaining.textContent = timeLeft;
@@ -159,7 +156,6 @@ function setAnswers(object, currentQuestionAnswerOptions) {
   for (var i = 0; i < currentQuestionAnswerOptions.length; i++) {
     var correct = getCorrectAnswerLetter(object);
     var isCorrectAnswer = getNumberValueFromCharacter(correct);
-    console.log(isCorrectAnswer);
 
     //1. Create the button
     var currentAnswerOption = document.createElement("button");
@@ -169,9 +165,10 @@ function setAnswers(object, currentQuestionAnswerOptions) {
     //3. Add event handler
     if (i === isCorrectAnswer) {
       //Handle when the correct answer was chosen
-      currentAnswerOption;
+      currentAnswerOption.addEventListener("click", handleCorrectAnswer);
     } else {
       //Handle when the correct answer was chosen
+      currentAnswerOption.addEventListener("click", handleWrongAnswer);
     }
   }
 }
@@ -186,6 +183,20 @@ function getNumberValueFromCharacter(char) {
   } else if (char === "d") {
     return 3;
   }
+}
+
+function handleCorrectAnswer() {
+  numCorrect++;
+  counter++;
+  clearQuestion();
+  updateQuestion(quizQuestions);
+}
+
+function handleWrongAnswer() {
+  timeLeft = timeLeft - 10;
+  counter++;
+  clearQuestion();
+  updateQuestion(quizQuestions);
 }
 
 init();
