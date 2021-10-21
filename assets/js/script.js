@@ -82,7 +82,8 @@ function startQuiz() {
   startQuizBtn.style.visibility = "hidden";
   startTimer();
   var x = getQuestion(quizQuestions, 0);
-  console.log(x);
+  setQuestion(x);
+  console.log(curQuestion);
   //   for(var i = 0; i<quizQuestions.length;i++)
   //     var currentQuestion = getQuestion(quizQuestions, i);
 
@@ -113,8 +114,11 @@ function startTimer() {
 }
 
 function getQuestion(array, index) {
-  // console.log(array[index].question);
   return array[index].question;
+}
+
+function setQuestion(question) {
+  curQuestion.innerHTML = question;
 }
 
 init();
