@@ -14,7 +14,7 @@ var isStartingScreen = true;
 //Need an array containing the quiz questions and potential answers
 var quizQuestions = [
   {
-    number: 1,
+    number: 0,
     question:
       "1. Which of the following is not a way to define a new variable in javascript?",
     answers: {
@@ -26,7 +26,7 @@ var quizQuestions = [
     correctAnswer: "c",
   },
   {
-    number: 2,
+    number: 1,
     question: "2. Which of the following is not semantic elements in html5?",
     answers: {
       a: "middle",
@@ -37,7 +37,7 @@ var quizQuestions = [
     correctAnswer: "a",
   },
   {
-    number: 3,
+    number: 2,
     question:
       "3. Which of the following data types returns a true/false value?",
     answers: {
@@ -49,7 +49,7 @@ var quizQuestions = [
     correctAnswer: "d",
   },
   {
-    number: 4,
+    number: 3,
     question:
       "4. What is the name of a function that contains a parameter that accepts another function as an argument?",
     answers: {
@@ -61,7 +61,7 @@ var quizQuestions = [
     correctAnswer: "b",
   },
   {
-    number: 5,
+    number: 4,
     question:
       "5. When using Git, which line of code will allow you to switch from the current branch to the main branch?",
     answers: {
@@ -83,22 +83,27 @@ function init() {
 //FUNCTIONS
 //TODO: create function to start the quiz
 function startQuiz() {
-  //changes button text to from start to submit and starts timer
   startQuizBtn.style.visibility = "hidden";
   startTimer();
 
-  var x = getAnswers(quizQuestions[0]);
-  //   setQuestion(x);
-  console.log(x);
+  //1. Need to get a question and its answers and set to current quiz card
+  for (var i = 0; i < quizQuestions.length; i++) {
+    //first gets an individual quizQuestions object
+    currentQuizObject = getQuizObject(quizQuestions, i);
 
-  //   for(var i = 0; i<quizQuestions.length;i++)
-  //     var currentQuestion = getQuestion(quizQuestions, i);
+    //then gets the selected objects question property and sets it to the relevant html element
+    var currentQuizQuestion = getQuestion(currentQuizObject);
+    setQuestion(currentQuizQuestion);
+    // console.log(currentQuizObject);
+    // console.log(currentQuizQuestion);
 
-  //1. Need to present the user the first question + answer options
-  //   for (var i = 0; i < quizQuestions.length; i++) {
-  //     question.textContent = quizQuestions[i].question;
-  //     answers.textContent = quizQuestions[i].answers;
-  //   }
+    //also then gets the selected objects answer property and sets it to the relevant html element
+    var currentQuestionAnswers = getAnswers(currentQuizObject);
+    // setAnswers;
+    console.log(getCorrectAnswerLetter(currentQuizObject));
+
+    break;
+  }
 
   //2.a Store quiz questions in an array and start looping array to display first question
   //2.b Store quiz questions in an array and start looping array to display first question
@@ -128,6 +133,10 @@ function getQuestion(object) {
   return object.question;
 }
 
+function getCorrectAnswerLetter(object) {
+  return object.correctAnswer;
+}
+
 function setQuestion(question) {
   curQuestion.innerHTML = question;
 }
@@ -135,18 +144,35 @@ function setQuestion(question) {
 function getAnswers(object) {
   var currentQuestionsAnswers = [];
   var curAnswers = object.answers;
+  var correctAnswer = getCorrectAnswerLetter(object);
 
   for (let letter in curAnswers) {
-    var answerString = "$" + curAnswers[letter];
+    console.log(letter);
+
+    var answerString = curAnswers[letter];
     currentQuestionsAnswers.push(answerString);
   }
-  //   console.log(currentQuestionsAnswers);
+  //returns an array of strings with each element being a different multiple choice options
   return currentQuestionsAnswers;
 }
 
-function setAnswers(question) {
-  curQuestion.innerHTML = question;
+function setAnswers(currentQuestionAnswerOptions) {
+  //TODO: add a button for each element in array passed in
+  for (var i = 0; i < currentQuestionAnswerOptions.length; i++) {
+    //1. Create the button
+    var currentAnswerOption = document.createElement("button");
+    currentAnswerOption.innerHTML = currentQuestionAnswerOptions[i];
+    //2. Append somewhere
+    curAnswers.appendChild(currentAnswerOption);
+    //3. Add event handler
+    currentAnswerOption.addEventListener("click");
+  }
 }
+
+//check when a button is correct, if it is the right answer, and what to do in each scenario after
+// function isCorrectAnswer(){
+//     var
+// }
 
 init();
 
