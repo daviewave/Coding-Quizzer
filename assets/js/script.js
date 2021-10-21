@@ -3,14 +3,21 @@ var startQuizBtn = $("#start");
 var secondsRemaining = $("");
 
 var secondsRemaining = document.getElementById("seconds-left");
-//1.a target html element with id 'quiz-question' -- will replace title of quiz
-//1.b target html element with id 'intro-paragragh' -- will replace quiz description
 var question = document.getElementById("quiz-question");
 var answers = document.getElementById("intro-paragragh");
 
 //DATA
 //bool to track if the current screen is the intro screen (still press start button)
 var isStartingScreen = true;
+
+//Need an array containing the quiz questions and potential answers
+var quizQuestions = [
+  "1. Which of the following is not a way to define a new variable in javascript?",
+  "2. Which of the following is not a primitive data type in javascript?",
+  "3. Which of the following data types returns a true/false value?",
+  "4. What is the name of a function that contains a parameter that accepts another function as an argument?",
+  "5. When using Git, which line of code will allow you to switch from the current branch to the main branch?",
+];
 
 //FUNCTIONS
 //TODO: create function to start the quiz
