@@ -100,5 +100,16 @@ function startTimer() {
   }, 1000);
 }
 
+function buildQuizQuestion() {
+  var htmlOutput = [];
+
+  //loop through each question in array and give question + possible answers, waiting until the user has selected one
+  /*   () => is a function call where () = parameters and => goes into logic */
+
+  quizQuestions.forEach((currQuestion, questionNumber) => {
+    var currAnswers = [];
+  });
+}
+
 //USER INTERACTIONS
 startQuizBtn.addEventListener("click", startQuiz);
