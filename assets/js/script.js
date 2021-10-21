@@ -73,6 +73,7 @@ function startQuiz() {
   //changes button text to from start to submit and starts timer
   startQuizBtn.innerHTML = "Submit Answer";
   startTimer();
+  buildQuizQuestion();
 
   //1. Need to present the user the first question + answer options
   //   for (var i = 0; i < quizQuestions.length; i++) {
@@ -109,7 +110,7 @@ function buildQuizQuestion() {
   quizQuestions.forEach((currQuestion, questionNumber) => {
     var currAnswers = [];
 
-    for (var i = 0; i < 4; i++) {
+    for (letter in currQuestion.currAnswers) {
       currAnswers.push(
         `<label>
                 <input type="radio" name="question${questionNumber}" value="${letter}">
@@ -118,7 +119,13 @@ function buildQuizQuestion() {
           </label>`
       );
     }
+
+    htmlOutput.push(
+      `<div class="question"> ${currQuestion.question} </div>
+            <div class="answers"> ${currAnswers.join("")} </div>`
+    );
   });
+  quizCard.innerHTML = htmlOutput.join("");
 }
 
 //USER INTERACTIONS
