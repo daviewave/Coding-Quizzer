@@ -86,6 +86,11 @@ function startQuiz() {
   startQuizBtn.style.visibility = "hidden";
   startTimer();
 
+  var correct = getCorrectAnswerLetter(quizQuestions[0]);
+  var isCorrectAnswer = getNumberValueFromCharacter(correct);
+
+  console.log(isCorrectAnswer);
+
   //1. Need to get a question and its answers and set to current quiz card
   for (var i = 0; i < quizQuestions.length; i++) {
     //first gets an individual quizQuestions object
@@ -100,7 +105,7 @@ function startQuiz() {
     //also then gets the selected objects answer property and sets it to the relevant html element
     var currentQuestionAnswers = getAnswers(currentQuizObject);
     // setAnswers;
-    console.log(getCorrectAnswerLetter(currentQuizObject));
+    // console.log(getCorrectAnswerLetter(currentQuizObject));
 
     break;
   }
@@ -147,10 +152,10 @@ function getAnswers(object) {
   var correctAnswer = getCorrectAnswerLetter(object);
 
   for (let letter in curAnswers) {
-    console.log(letter);
-
     var answerString = curAnswers[letter];
     currentQuestionsAnswers.push(answerString);
+    console.log(answerString);
+    break;
   }
   //returns an array of strings with each element being a different multiple choice options
   return currentQuestionsAnswers;
@@ -166,6 +171,18 @@ function setAnswers(currentQuestionAnswerOptions) {
     curAnswers.appendChild(currentAnswerOption);
     //3. Add event handler
     currentAnswerOption.addEventListener("click");
+  }
+}
+
+function getNumberValueFromCharacter(char) {
+  if (char === "a") {
+    return 0;
+  } else if (char === "b") {
+    return 1;
+  } else if (char === "c") {
+    return 2;
+  } else if (char === "d") {
+    return 3;
   }
 }
 
