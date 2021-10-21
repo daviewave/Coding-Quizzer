@@ -12,48 +12,58 @@ var isStartingScreen = true;
 //Need an array containing the quiz questions and potential answers
 var quizQuestions = [
   {
-    question_string:
+    question:
       "1. Which of the following is not a way to define a new variable in javascript?",
-    choices: {
-      correct: "new",
-      wrong: ["var", "let", "const"],
+    answers: {
+      a: "var",
+      b: "let",
+      c: "new",
+      d: "const",
     },
+    correctAnswer: "c",
   },
   {
-    question_string:
-      "2. Which of the following are not semantic elements in html5?",
-    choices: {
-      correct: "<middle>",
-      wrong: ["<article>", "<footer>", "<main>"],
+    question: "2. Which of the following are not semantic elements in html5?",
+    answers: {
+      a: "<middle>",
+      b: "<article>",
+      c: "<footer>",
+      d: "<main>",
     },
+    correctAnswer: "a",
   },
   {
-    question_string:
+    question:
       "3. Which of the following data types returns a true/false value?",
-    choices: {
-      correct: "boolean",
-      wrong: ["integer", "string", "float"],
+    answers: {
+      a: "float",
+      b: "string",
+      c: "integer",
+      d: "boolean",
     },
+    correctAnswer: "d",
   },
   {
-    question_string:
+    question:
       "4. What is the name of a function that contains a parameter that accepts another function as an argument?",
-    choices: {
-      correct: "Call-back function",
-      wrong: [
-        "Nested function",
-        "Recursive Function",
-        "function with-in a function",
-      ],
+    answers: {
+      a: "Nested function",
+      b: "Call-back function",
+      c: "Recursive Function",
+      d: "function with-in a function",
     },
+    correctAnswer: "b",
   },
   {
-    question_string:
+    question:
       "5. When using Git, which line of code will allow you to switch from the current branch to the main branch?",
-    choices: {
-      correct: "git checkout main",
-      wrong: ["git commit -m", "git add -A", "git init"],
+    answers: {
+      a: "git init",
+      b: "git add -A",
+      c: "git commit -m",
+      d: "git checkout main",
     },
+    correctAnswer: "d",
   },
 ];
 
@@ -66,8 +76,8 @@ function startQuiz() {
 
   //1. Need to present the user the first question + answer options
   //   for (var i = 0; i < quizQuestions.length; i++) {
-  //     question.textContent = quizQuestions[i].question_string;
-  //     answers.textContent = quizQuestions[i].choices;
+  //     question.textContent = quizQuestions[i].question;
+  //     answers.textContent = quizQuestions[i].answers;
   //   }
 
   //2.a Store quiz questions in an array and start looping array to display first question
