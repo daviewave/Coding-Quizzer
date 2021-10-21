@@ -3,7 +3,12 @@ var startQuizBtn = document.getElementById("start");
 var quizCard = document.getElementById("quiz-card");
 var curQuestion = document.getElementById("quizCardHeader");
 var curAnswers = document.getElementById("quizCardBody");
+
 var resultsCard = document.getElementById("results");
+var resultHead = document.getElementById("allDone");
+var resultScore = document.getElementById("finalScore");
+var formEl = document.getElementById("initials");
+
 var highscoreCard = document.getElementById("highscores");
 var secondsRemaining = document.getElementById("seconds-left");
 
@@ -96,8 +101,14 @@ function updateQuestion(arrayOfobjects) {
   setAnswers(arrayOfobjects[counter], newAnswers);
   numQuestions--;
   if (numQuestions === 0) {
-    //Call a function to end the game
+    clearQuestion();
+    giveScore();
   }
+}
+
+function giveScore() {
+  curQuestion.innerHTML = "All Done.";
+  curAnswers.innerHTML = "Your Final Score is: " + timeLeft + " points.";
 }
 
 function startTimer() {
@@ -106,7 +117,8 @@ function startTimer() {
       secondsRemaining.textContent = timeLeft;
       timeLeft--;
     } else {
-      secondsRemaining.textContent = "";
+      secondsRemaining.textContent = "Times up!";
+      giveScore();
       clearInterval(timer);
     }
   }, 1000);
@@ -146,7 +158,7 @@ function setAnswers(object, currentQuestionAnswerOptions) {
     //1. Create the button
     var currentAnswerOption = document.createElement("button");
     currentAnswerOption.innerHTML = currentQuestionAnswerOptions[i];
-    //2. Append somewhere
+    //2. Append
     curAnswers.appendChild(currentAnswerOption);
     //3. Add event handler
     if (i === isCorrectAnswer) {
@@ -173,6 +185,11 @@ function getNumberValueFromCharacter(char) {
   } else if (char === "d") {
     return 3;
   }
+}
+
+function clearQuestion() {
+  curQuestion.innerHTML = "";
+  curAnswers.innerHTML = "";
 }
 
 function handleCorrectAnswer() {
