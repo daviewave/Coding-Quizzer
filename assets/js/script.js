@@ -3,6 +3,8 @@ var startQuizBtn = $("#start");
 var secondsRemaining = document.getElementById("seconds-left");
 
 //DATA
+//bool to track if the current screen is the intro screen (still press start button)
+var isStartingScreen;
 
 //FUNCTIONS
 //TODO: create function to start the quiz
