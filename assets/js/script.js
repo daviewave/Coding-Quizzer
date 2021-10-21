@@ -108,6 +108,16 @@ function buildQuizQuestion() {
 
   quizQuestions.forEach((currQuestion, questionNumber) => {
     var currAnswers = [];
+
+    for (var i = 0; i < 4; i++) {
+      currAnswers.push(
+        `<label>
+                <input type="radio" name="question${questionNumber}" value="${letter}">
+                ${letter} :
+                ${currQuestion.currAnswers[letter]}
+          </label>`
+      );
+    }
   });
 }
 
