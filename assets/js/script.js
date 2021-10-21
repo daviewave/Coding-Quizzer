@@ -11,6 +11,12 @@ var secondsRemaining = document.getElementById("seconds-left");
 //bool to track if the current screen is the intro screen (still press start button)
 var isStartingScreen = true;
 
+function init() {
+  curQuestion.innerHTML = "Coding Skills Quizzer";
+  curAnswers.innerHTML =
+    "In the coding quiz you will be asked a series of multiple choice questions to test your knowledge on the principles of coding. Click the 'START' button below to begin.";
+}
+
 //Need an array containing the quiz questions and potential answers
 var quizQuestions = [
   {
@@ -75,7 +81,6 @@ function startQuiz() {
   //changes button text to from start to submit and starts timer
   startQuizBtn.innerHTML = "Submit Answer";
   startTimer();
-  buildQuizQuestion();
 
   //1. Need to present the user the first question + answer options
   //   for (var i = 0; i < quizQuestions.length; i++) {
@@ -105,3 +110,5 @@ function startTimer() {
 
 //USER INTERACTIONS
 startQuizBtn.addEventListener("click", startQuiz);
+
+init();
