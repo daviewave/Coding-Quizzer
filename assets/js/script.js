@@ -59,7 +59,7 @@ var quizQuestions = [
 //FUNCTIONS
 //TODO: create function to start the quiz
 function startQuiz() {
-  startQuizBtn.disabled = true;
+  startQuizBtn.hide();
   startTimer();
 
   //1. Need to present the user the first question + answer options
