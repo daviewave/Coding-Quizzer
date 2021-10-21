@@ -1,8 +1,10 @@
 //DEPENDENCIES
 var startQuizBtn = document.getElementById("start");
 var quizCard = document.getElementById("quiz-card");
-var resultsCard = document.getElementById("quiz-card");
-var highscoreCard = document.getElementById("quiz-card");
+var curQuestion = document.getElementById("quizCardHeader");
+var curAnswers = document.getElementById("quizCardBody");
+var resultsCard = document.getElementById("results");
+var highscoreCard = document.getElementById("highscores");
 var secondsRemaining = document.getElementById("seconds-left");
 
 //DATA
@@ -23,12 +25,12 @@ var quizQuestions = [
     correctAnswer: "c",
   },
   {
-    question: "2. Which of the following are not semantic elements in html5?",
+    question: "2. Which of the following is not semantic elements in html5?",
     answers: {
-      a: "<middle>",
-      b: "<article>",
-      c: "<footer>",
-      d: "<main>",
+      a: "middle",
+      b: "article",
+      c: "footer",
+      d: "main",
     },
     correctAnswer: "a",
   },
@@ -99,33 +101,6 @@ function startTimer() {
       clearInterval(timer);
     }
   }, 1000);
-}
-
-function buildQuizQuestion() {
-  var htmlOutput = [];
-
-  //loop through each question in array and give question + possible answers, waiting until the user has selected one
-  /*   () => is a function call where () = parameters and => goes into logic */
-
-  quizQuestions.forEach((currQuestion, questionNumber) => {
-    var currAnswers = [];
-
-    for (letter in currQuestion.currAnswers) {
-      currAnswers.push(
-        `<label>
-                <input type="radio" name="question${questionNumber}" value="${letter}">
-                ${letter} :
-                ${currQuestion.currAnswers[letter]}
-          </label>`
-      );
-    }
-
-    htmlOutput.push(
-      `<div class="question"> ${currQuestion.question} </div>
-            <div class="answers"> ${currAnswers.join("")} </div>`
-    );
-  });
-  quizCard.innerHTML = htmlOutput.join("");
 }
 
 //USER INTERACTIONS
