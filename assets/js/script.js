@@ -19,7 +19,6 @@ var numQuestions = 5;
 var counter = 0;
 var quizQuestions = [
   {
-    number: 0,
     question:
       "1. Which of the following is not a way to define a new variable in javascript?",
     answers: {
@@ -31,7 +30,6 @@ var quizQuestions = [
     correctAnswer: "c",
   },
   {
-    number: 1,
     question: "2. Which of the following is not semantic elements in html5?",
     answers: {
       a: "middle",
@@ -42,7 +40,6 @@ var quizQuestions = [
     correctAnswer: "a",
   },
   {
-    number: 2,
     question:
       "3. Which of the following data types returns a true/false value?",
     answers: {
@@ -54,7 +51,6 @@ var quizQuestions = [
     correctAnswer: "d",
   },
   {
-    number: 3,
     question:
       "4. What is the name of a function that contains a parameter that accepts another function as an argument?",
     answers: {
@@ -66,7 +62,6 @@ var quizQuestions = [
     correctAnswer: "b",
   },
   {
-    number: 4,
     question:
       "5. When using Git, which line of code will allow you to switch from the current branch to the main branch?",
     answers: {
@@ -96,14 +91,8 @@ function startQuiz() {
 function updateQuestion(arrayOfobjects) {
   var newQuestion = getQuestion(arrayOfobjects[counter]);
   var newAnswers = getAnswers(arrayOfobjects[counter]);
-
   setQuestion(newQuestion);
   setAnswers(arrayOfobjects[counter], newAnswers);
-  numQuestions--;
-  if (numQuestions === 0) {
-    clearQuestion();
-    giveScore();
-  }
 }
 
 function giveScore() {
@@ -125,13 +114,16 @@ function giveScore() {
 
 function startTimer() {
   var timer = setInterval(function () {
-    if (timeLeft > 0) {
-      secondsRemaining.textContent = timeLeft;
-      timeLeft--;
-    } else {
+    console.log(numQuestions);
+    if (numQuestions === 0) {
+      secondsRemaining.textContent = "Finished Quiz";
+      //   giveScore();
+    } else if (timeLeft === 0) {
       secondsRemaining.textContent = "Times up!";
       giveScore();
-      clearInterval(timer);
+    } else if (timeLeft > 0) {
+      secondsRemaining.textContent = timeLeft;
+      timeLeft--;
     }
   }, 1000);
 }
@@ -208,14 +200,26 @@ function handleCorrectAnswer() {
   numCorrect++;
   counter++;
   clearQuestion();
-  updateQuestion(quizQuestions);
+  numQuestions--;
+  if (numQuestions > 0) {
+    updateQuestion(quizQuestions);
+  } else {
+    clearQuestion();
+    giveScore();
+  }
 }
 
 function handleWrongAnswer() {
   timeLeft = timeLeft - 10;
   counter++;
   clearQuestion();
-  updateQuestion(quizQuestions);
+  numQuestions--;
+  if (numQuestions > 0) {
+    updateQuestion(quizQuestions);
+  } else {
+    clearQuestion();
+    giveScore();
+  }
 }
 
 //USER INTERACTIONS
