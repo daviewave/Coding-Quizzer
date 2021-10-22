@@ -4,13 +4,10 @@ var quizCard = document.getElementById("quiz-card");
 var curQuestion = document.getElementById("quizCardHeader");
 var curAnswers = document.getElementById("quizCardBody");
 
-// var resultsCard = document.getElementById("results");
-// var resultHead = document.getElementById("allDone");
-// var resultScore = document.getElementById("finalScore");
-// var formEl = document.getElementById("initials");
-
 var highscoreCard = document.getElementById("highscores");
 var secondsRemaining = document.getElementById("seconds-left");
+var highscoreDisplay = document.querySelector("#highscores");
+var viewHighscores = document.getElementById("highscore-link");
 
 //DATA
 var numCorrect = 0;
@@ -73,6 +70,7 @@ var quizQuestions = [
     correctAnswer: "d",
   },
 ];
+var highscoreList = [];
 
 //FUNCTIONS
 function init() {
@@ -100,24 +98,61 @@ function giveScore() {
   curAnswers.innerHTML = "Your Final Score is: " + timeLeft + " points.";
 
   var highscoreForm = document.createElement("form");
-  highscoreForm.setAttribute("method", "post");
-  highscoreForm.setAttribute("action", "showHighscores"); //call function
+  highscoreForm.setAttribute("id", "highscore-form"); //call function
 
   var userInitials = document.createElement("input");
   userInitials.setAttribute("type", "text");
-  userInitials.setAttribute("name", "Initials");
+  userInitials.setAttribute("id", "initials");
   userInitials.setAttribute("placeholder", "Enter Initials");
 
+  var submitBtn = document.createElement("input");
+  submitBtn.setAttribute("type", "button");
+  submitBtn.setAttribute("id", "submit");
+  submitBtn.setAttribute("value", "Submit");
+  //   submitBtn.setAttribute("className", "btn");
+
   highscoreForm.appendChild(userInitials);
+  highscoreForm.appendChild(submitBtn);
   $(highscoreForm).appendTo("#quizCardBody");
+
+  submitBtn.addEventListener("click", saveUserScore);
+
+  //   localStorage.setItem("studentGrade", JSON.stringify(studentGrade));
+}
+
+function saveUserScore() {
+  var input = document.getElementById("initials").value;
+  var finalScore = timeLeft;
+
+  var newScore = {
+    initials: input,
+    score: finalScore,
+  };
+  document.getElementById("highscore-form").reset();
+  highscoreList.push(newScore);
+  viewAllHighscores();
+}
+
+function viewAllHighscores() {
+  if (highscoreList.length === 0) {
+    var li = document.createElement("li");
+    li.textContent = "No highscores to display";
+    highscoreDisplay.appendChild(li);
+  }
+  for (var i = 0; i < highscoreList.length; i++) {
+    var initials = highscoreList[i].initials;
+    var score = highscoreList[i].score;
+
+    var li = document.createElement("li");
+    li.textContent = i + 1 + ": " + initials + score;
+    highscoreDisplay.appendChild(li);
+  }
 }
 
 function startTimer() {
   var timer = setInterval(function () {
-    console.log(numQuestions);
     if (numQuestions === 0) {
       secondsRemaining.textContent = "Finished Quiz";
-      //   giveScore();
     } else if (timeLeft === 0) {
       secondsRemaining.textContent = "Times up!";
       giveScore();
@@ -161,6 +196,7 @@ function setAnswers(object, currentQuestionAnswerOptions) {
 
     //1. Create the button
     var currentAnswerOption = document.createElement("button");
+    currentAnswerOption.setAttribute("id", "answers");
     currentAnswerOption.innerHTML = currentQuestionAnswerOptions[i];
     //2. Append
     curAnswers.appendChild(currentAnswerOption);
@@ -224,5 +260,7 @@ function handleWrongAnswer() {
 
 //USER INTERACTIONS
 startQuizBtn.addEventListener("click", startQuiz);
+
+viewHighscores.addEventListener("click", viewAllHighscores);
 
 init();
