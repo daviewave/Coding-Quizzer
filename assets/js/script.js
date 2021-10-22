@@ -4,10 +4,10 @@ var quizCard = document.getElementById("quiz-card");
 var curQuestion = document.getElementById("quizCardHeader");
 var curAnswers = document.getElementById("quizCardBody");
 
-var resultsCard = document.getElementById("results");
-var resultHead = document.getElementById("allDone");
-var resultScore = document.getElementById("finalScore");
-var formEl = document.getElementById("initials");
+// var resultsCard = document.getElementById("results");
+// var resultHead = document.getElementById("allDone");
+// var resultScore = document.getElementById("finalScore");
+// var formEl = document.getElementById("initials");
 
 var highscoreCard = document.getElementById("highscores");
 var secondsRemaining = document.getElementById("seconds-left");
@@ -109,6 +109,18 @@ function updateQuestion(arrayOfobjects) {
 function giveScore() {
   curQuestion.innerHTML = "All Done.";
   curAnswers.innerHTML = "Your Final Score is: " + timeLeft + " points.";
+
+  var highscoreForm = document.createElement("form");
+  highscoreForm.setAttribute("method", "post");
+  highscoreForm.setAttribute("action", "showHighscores"); //call function
+
+  var userInitials = document.createElement("input");
+  userInitials.setAttribute("type", "text");
+  userInitials.setAttribute("name", "Initials");
+  userInitials.setAttribute("placeholder", "Enter Initials");
+
+  highscoreForm.appendChild(userInitials);
+  $(highscoreForm).appendTo("#quizCardBody");
 }
 
 function startTimer() {
