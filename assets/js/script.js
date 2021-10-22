@@ -108,7 +108,7 @@ function giveScore() {
   var submitBtn = document.createElement("input");
   submitBtn.setAttribute("type", "button");
   submitBtn.setAttribute("id", "submit");
-  submitBtn.setAttribute("value", "Submit");
+  submitBtn.setAttribute("value", "Save Score");
   //   submitBtn.setAttribute("className", "btn");
 
   highscoreForm.appendChild(userInitials);
