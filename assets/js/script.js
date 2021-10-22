@@ -144,7 +144,7 @@ function viewAllHighscores() {
     var score = highscoreList[i].score;
 
     var li = document.createElement("li");
-    li.textContent = i + 1 + ": " + initials + score;
+    li.textContent = i + 1 + ": " + initials + " " + score;
     highscoreDisplay.appendChild(li);
   }
 }
